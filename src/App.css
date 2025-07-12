@@ -1,0 +1,126 @@
+/* Reset and base styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #e0f2f1;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 600px;
+  margin: 100px auto;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #6366f1;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+input[type="text"] {
+  width: 70%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+.addbtn {
+  height: 44px;
+  font-size: 18px;
+}
+button {
+  padding: 10px 14px;
+  border: none;
+  background-color: #6366f1;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #4e46e5a9;
+}
+
+/* Task list */
+ul {
+  margin-top: 20px;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(128, 128, 128, 0.184);
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  font-size: 20px;
+}
+
+/* Task text */
+li span {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+li input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+li button {
+  margin-left: 8px;
+  font-size: 0.9rem;
+}
+
+.container.light {
+  background-color: #ffffff;
+  color: #111;
+}
+
+.container.dark {
+  background-color: #1f2937;
+  color: #f3f4f6;
+}
+
+.container.dark input[type="text"] {
+  background-color: #374151;
+  color: #f9fafb;
+  border: 1px solid #4b5563;
+}
+
+.container.dark li {
+  background-color: #374151;
+}
+
+.container.dark button {
+  background-color: #4f46e5;
+}
+
+.theme-toggle {
+  float: right;
+  margin-bottom: 10px;
+  background: none;
+  border: 2px solid #6366f1;
+  color: #6366f1;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: #6366f1;
+  color: white;
+}
