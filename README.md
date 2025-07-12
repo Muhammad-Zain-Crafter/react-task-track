@@ -1,7 +1,8 @@
-React Task Tracker
+# React Task Tracker
 A simple and intuitive task management app built with React.js.
 
-✨ Features
+## Features
+
 Add Tasks – Create new tasks to stay organized
 
 Edit Tasks – Update any task anytime
