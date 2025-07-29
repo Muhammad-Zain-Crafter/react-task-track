@@ -1,46 +1,56 @@
-import {useState } from 'react'
-import './App.css'
-
+import { useEffect, useState } from "react";
+import "./App.css";
+import logo from "./assets/notebook.png"; 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState('');
+  const [newTask, setNewTask] = useState("");
   const [editingId, setEditingId] = useState(null);
-  const [editingText, setEditingText] = useState('');
+  const [editingText, setEditingText] = useState("");
   const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    if (savedTasks) {
+      setTasks(JSON.parse(savedTasks));
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   function toggleTheme() {
     setDarkMode(!darkMode);
-  } 
+  }
 
   function hnadleAddTask() {
-        if (newTask === "") {
-          return
-        }
-        const newTaskItem = {
-        id: Date.now(),
-        text: newTask,
-        completed: false,
-        };
-        setTasks([...tasks, newTaskItem])
-        setNewTask(''); //  clears the input box
+    if (newTask === "") {
+      return;
+    }
+    const newTaskItem = {
+      id: Date.now(),
+      text: newTask,
+      completed: false,
+    };
+    setTasks([...tasks, newTaskItem]);
+    setNewTask(""); //  clears the input box
   }
   function handleEdit(id, text) {
     setEditingId(id);
     setEditingText(text);
   }
-function handleSave(id) {
-  setTasks(
-    tasks.map((task) => 
-      task.id === id ? 
-        { ...task, text:editingText} : task
-    )
-  )
+  function handleSave(id) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, text: editingText } : task
+      )
+    );
     setEditingId(null);
-    setEditingText('');
-}
+    setEditingText("");
+  }
 
   function handleDelete(id) {
-    setTasks(tasks.filter((task) => task.id !== id))
+    setTasks(tasks.filter((task) => task.id !== id));
   }
 
   const handleCheckbox = (id) => {
@@ -52,59 +62,72 @@ function handleSave(id) {
   };
 
   return (
-    <div className={`container ${darkMode ? 'dark' : 'light'}`}>
+    <div className={`container ${darkMode ? "dark" : "light"}`}>
       <button onClick={toggleTheme} className="theme-toggle">
-      {darkMode ? 'Light Mode' : 'Dark Mode'}
-       </button>
-      <div className='content'>
-       <h1>Task Track</h1>
-      
-      <input 
-      type="text"
-      placeholder="Add task"
-      value={newTask}
-      onChange={(e) => setNewTask(e.target.value)}
-      />
-      <button className='addbtn'
-       onClick={hnadleAddTask}>
-        Add</button>
-      <ul style={{listStyle: "none", padding: 0}}>
-        {tasks.map((task) => (
-         <li key={task.id} style={{ marginTop: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
-  <input 
-    type='checkbox'
-    checked={task.completed}
-    onChange={() => handleCheckbox(task.id)}
-  />
-  {editingId === task.id ? (
-    <>
-      <input
-        type='text'
-        value={editingText}
-        onChange={(e) => setEditingText(e.target.value)}
-      />
-      <button onClick={() => handleSave(task.id)}>Save</button>
-    </>
-  ) : (
-    <>
-      <span
-        style={{
-          textDecoration: task.completed ? "line-through" : "none",
-        }}
-      >
-        {task.text}
-      </span>
-      <button onClick={() => handleEdit(task.id, task.text)}>Edit</button>
-    </>
-  )}
-  <button onClick={() => handleDelete(task.id)}>Delete</button>
-</li>
+        {darkMode ? "Light Mode" : "Dark Mode"}
+      </button>
+      <div className="content">
+        <div className="header">
+           <img src={logo} alt="Task Track Logo" className="logo" />
+           <h1>Task Track</h1>
+        </div>
+       
 
-        ))}
-      </ul>
+        <input
+          type="text"
+          placeholder="Add task"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+        />
+        <button className="addbtn" onClick={hnadleAddTask}>
+          Add
+        </button>
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          {tasks.map((task) => (
+            <li
+              key={task.id}
+              style={{
+                marginTop: "10px",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => handleCheckbox(task.id)}
+              />
+              {editingId === task.id ? (
+                <>
+                  <input
+                    type="text"
+                    value={editingText}
+                    onChange={(e) => setEditingText(e.target.value)}
+                  />
+                  <button onClick={() => handleSave(task.id)}>Save</button>
+                </>
+              ) : (
+                <>
+                  <span
+                    style={{
+                      textDecoration: task.completed ? "line-through" : "none",
+                    }}
+                  >
+                    {task.text}
+                  </span>
+                  <button onClick={() => handleEdit(task.id, task.text)}>
+                    Edit
+                  </button>
+                </>
+              )}
+              <button onClick={() => handleDelete(task.id)}>Delete</button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
